@@ -1,10 +1,11 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.use(
-    '/location',
+    "/location",
     createProxyMiddleware({
-      target: 'https://www.metaweather.com/api/location',
+      // metaweather.com forgets to send cors response on some endpoints. Bug?
+      target: "https://meta-weather.now.sh/api",
       changeOrigin: true,
     })
   );

@@ -6,6 +6,17 @@ import Search from "./components/Search";
 import { asyncGetWeatherData } from "./redux/slices/weatherSlice";
 import { RootStoreState } from "./redux/store";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#2196f3",
+    },
+    secondary: {
+      main: "#76ff03",
+    },
+  },
+});
+
 function App() {
   const styles = useStyles();
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,21 +26,11 @@ function App() {
   function handleSubmitSearch() {
     dispatch(asyncGetWeatherData({ cityName: searchQuery }));
   }
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#2196f3",
-      },
-      secondary: {
-        main: "#76ff03",
-      },
-    },
-  });
   return (
     <ThemeProvider theme={theme}>
       <div className={"App " + styles.root}>
         <Grid container spacing={1}>
-          <Grid item xs={12} spacing={3}>
+          <Grid item xs={12}>
             <Container maxWidth="sm">
               <Search value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onSubmit={handleSubmitSearch}></Search>
             </Container>

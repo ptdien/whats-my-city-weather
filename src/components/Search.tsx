@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, Input, InputLabel, makeStyles, InputProps, InputAdornment, OutlinedInput, Icon, IconButton } from "@material-ui/core";
+import { FormControl, FormHelperText, Input, InputLabel, makeStyles, InputProps, InputAdornment, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import React from "react";
 
