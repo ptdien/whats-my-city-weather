@@ -4,9 +4,18 @@ module.exports = function (app) {
   app.use(
     "/location",
     createProxyMiddleware({
-      // metaweather.com forgets to send cors response on some endpoints. Bug?
-      target: "https://meta-weather.now.sh/api",
+      target: "https://www.metaweather.com/api",
       changeOrigin: true,
+    })
+  );
+  app.use(
+    "/forecast",
+    createProxyMiddleware({
+      target: `http://www.7timer.info/bin/api.pl`,
+      changeOrigin: true,
+      pathRewrite: {
+        "^/forecast": "",
+      }
     })
   );
 };

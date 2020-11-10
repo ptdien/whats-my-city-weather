@@ -1,43 +1,53 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
+import dayjs from "dayjs";
+import { City } from "./citiesSlice";
 
 type WeatherData = {
-  applicableDate: Date;
+  applicableDate: string;
   minTemperature: number;
   maxTemperature: number;
 };
 
 export type WeatherState = {
   cityName: string;
-  woeid: number;
   weatherData: WeatherData[];
-  status: "idle" | "loading" | "error";
+  status: "idle" | "loading" | "error" | "success";
   errorMessage?: string;
 };
 
-export const asyncGetWeatherData = createAsyncThunk<WeatherState, { cityName: string }, { rejectValue: { errorMessage: string } }>(
+function fetchWeatherForecast(lon: string, lat: string) {
+  return Axios.get(`/forecast`, {
+    params: {
+      lon: lon,
+      lat: lat,
+      product: "civillight",
+      output: "json",
+    },
+  });
+}
+
+export const asyncFetchWeatherData = createAsyncThunk<WeatherState, City, { rejectValue: { errorMessage: string } }>(
   "weather/fetchData",
-  async ({ cityName }, thunkApi) => {
-    const cities: any[] = await Axios.get(`/location/search/?query=${cityName}`).then((response) => response.data);
-    if (!cities || !cities.length) {
+  async ({ cityName, longitude, latitude }, thunkApi) => {
+    try {
+      const forecastData = await fetchWeatherForecast(longitude, latitude).then((response) => response.data);
+      return {
+        cityName,
+        weatherData: forecastData.dataseries.map(
+          (w: any) =>
+            ({
+              applicableDate: dayjs(String(w.date)).toISOString(),
+              maxTemperature: w.temp2m.max,
+              minTemperature: w.temp2m.min,
+            } as WeatherData)
+        ),
+      } as WeatherState;
+    } catch (e) {
       return thunkApi.rejectWithValue({
-        errorMessage: "No city or location name matched",
+        errorMessage: "An unknown error occurred. Please try again.",
       });
     }
-    const { woeid, title } = cities[0];
-    const weatherData = await Axios.get(`/location/${woeid}`).then((response) => response.data);
-    return {
-      cityName: title,
-      woeid: +woeid,
-      weatherData: weatherData.consolidated_weather.map(
-        (w: any) =>
-          ({
-            applicableDate: w.applicable_date,
-            maxTemperature: w.max_temp,
-            minTemperature: w.min_temp,
-          } as WeatherData)
-      ),
-    } as WeatherState;
   }
 );
 
@@ -49,16 +59,16 @@ const weatherSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(asyncGetWeatherData.pending, (state) => {
+      .addCase(asyncFetchWeatherData.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(asyncGetWeatherData.fulfilled, (state, action) => {
-        state.status = "idle";
+      .addCase(asyncFetchWeatherData.fulfilled, (state, action) => {
+        state.status = "success";
         state.weatherData = action.payload.weatherData;
         state.cityName = action.payload.cityName;
         state.errorMessage = undefined;
       })
-      .addCase(asyncGetWeatherData.rejected, (state, action) => {
+      .addCase(asyncFetchWeatherData.rejected, (state, action) => {
         state.status = "error";
         state.errorMessage = action.payload?.errorMessage;
       });

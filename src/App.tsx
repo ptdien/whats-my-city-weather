@@ -1,9 +1,10 @@
-import { Container, createMuiTheme, Grid, makeStyles, ThemeProvider } from "@material-ui/core";
-import React, { useState } from "react";
+import { createMuiTheme, Grid, LinearProgress, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DayWeather from "./components/DayWeather";
-import Search from "./components/Search";
-import { asyncGetWeatherData } from "./redux/slices/weatherSlice";
+import CitySearch from "./components/CitySearch";
+import WeatherCard from "./components/WeatherCard";
+import { City } from "./redux/slices/citiesSlice";
+import { asyncFetchWeatherData } from "./redux/slices/weatherSlice";
 import { RootStoreState } from "./redux/store";
 
 const theme = createMuiTheme({
@@ -19,31 +20,44 @@ const theme = createMuiTheme({
 
 function App() {
   const styles = useStyles();
-  const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const weatherData = useSelector((state: RootStoreState) => state.weather.weatherData);
+  const cityName = useSelector((state: RootStoreState) => state.weather.cityName);
+  const status = useSelector((state: RootStoreState) => state.weather.status);
 
-  function handleSubmitSearch() {
-    dispatch(asyncGetWeatherData({ cityName: searchQuery }));
+  function handleSubmitSearch(city: City | null) {
+    dispatch(asyncFetchWeatherData(city!));
   }
+
   return (
     <ThemeProvider theme={theme}>
       <div className={"App " + styles.root}>
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Container maxWidth="sm">
-              <Search value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onSubmit={handleSubmitSearch}></Search>
-            </Container>
-          </Grid>
-          {weatherData && (
-            <Grid container item xs={12} spacing={3}>
-              {weatherData.map((w) => (
-                <Grid item xs={6} md={3}>
-                  <DayWeather dayIndex={new Date(w.applicableDate).getDay()} minTemperature={w.minTemperature} maxTemperature={w.maxTemperature}></DayWeather>
-                </Grid>
-              ))}
+        {status === "loading" && <LinearProgress className={styles.progressBar} />}
+        <Grid container spacing={3} alignItems="center" justify="center">
+          <Grid container item xs={12} spacing={3} className={styles.weatherCards} alignItems="center" justify="flex-start">
+            <Grid item xs={12} className={styles.citySearch}>
+              <CitySearch onChange={handleSubmitSearch} />
             </Grid>
-          )}
+            {weatherData && (
+              <>
+                <Grid item xs={12}>
+                  <Typography variant="h5" color="textPrimary" gutterBottom>
+                    {cityName}
+                  </Typography>
+                </Grid>
+                {weatherData.map((w) => (
+                  <Grid item xs={6} md={3}>
+                    <WeatherCard
+                      key={w.applicableDate}
+                      dayIndex={new Date(w.applicableDate).getDay()}
+                      minTemperature={w.minTemperature}
+                      maxTemperature={w.maxTemperature}
+                    ></WeatherCard>
+                  </Grid>
+                ))}
+              </>
+            )}
+          </Grid>
         </Grid>
       </div>
     </ThemeProvider>
@@ -52,6 +66,7 @@ function App() {
 
 const useStyles = makeStyles({
   root: {
+    width: "100%",
     minHeight: "100vh",
     display: "flex",
     alignItems: "center",
@@ -59,7 +74,17 @@ const useStyles = makeStyles({
     fontSize: "calc(10px + 2vmin)",
     color: "white",
     boxSizing: "border-box",
+    flexDirection: "column",
     padding: 20,
+    position: "relative",
+  },
+  weatherCards: {},
+  citySearch: {},
+  progressBar: {
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
   },
 });
 

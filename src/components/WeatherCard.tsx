@@ -7,15 +7,15 @@ export default function DayWeather({ dayIndex, minTemperature, maxTemperature }:
   const styles = useStyles();
   return (
     <Card className={styles.root} variant="outlined">
-      <CardContent>
-        <Typography className={styles.title} color="textSecondary" gutterBottom>
+      <CardContent className={styles.content}>
+        <Typography variant="h6" className={styles.title} color="textPrimary" gutterBottom>
           {Days[dayIndex]}
         </Typography>
         <Typography className={styles.title} color="textSecondary" gutterBottom>
-          {Number(minTemperature).toFixed(0)}
+          Min: {Number(minTemperature).toFixed(0)}&#8451;
         </Typography>
         <Typography className={styles.title} color="textSecondary" gutterBottom>
-          {Number(maxTemperature).toFixed(0)}
+          Max: {Number(maxTemperature).toFixed(0)}&#8451;
         </Typography>
       </CardContent>
     </Card>
@@ -28,6 +28,9 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+  },
+  content: {
+    textAlign: "center",
   },
   title: {},
 });
