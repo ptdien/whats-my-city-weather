@@ -1,8 +1,6 @@
 import { Card, CardContent, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
 
-const Days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
 export default function DayWeather({ dayIndex, minTemperature, maxTemperature }: { dayIndex: number; minTemperature: number; maxTemperature: number }) {
   const styles = useStyles();
   return (
@@ -21,6 +19,8 @@ export default function DayWeather({ dayIndex, minTemperature, maxTemperature }:
     </Card>
   );
 }
+
+const Days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const useStyles = makeStyles({
   root: {

@@ -3,7 +3,7 @@ import Axios from "axios";
 import dayjs from "dayjs";
 import { City } from "./citiesSlice";
 
-type WeatherData = {
+export type WeatherData = {
   applicableDate: string;
   minTemperature: number;
   maxTemperature: number;

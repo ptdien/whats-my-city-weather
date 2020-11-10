@@ -1,9 +1,10 @@
 import { debounce, makeStyles, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import clsx from "clsx";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncFetchCityNames, City } from "../redux/slices/citiesSlice";
-import { RootStoreState } from "../redux/store";
+import { asyncFetchCityNames, City } from "../../redux/slices/citiesSlice";
+import { RootStoreState } from "../../redux/store";
 
 type CitySearchProps = { initialValue?: City; label?: string; onChange?: (value: City | null) => void };
 
@@ -16,7 +17,7 @@ export default function CitySearch({ label = "City Search", initialValue, onChan
     dispatch(asyncFetchCityNames(e.target.value));
   }, 500);
   return (
-    <div className={styles.citySearch}>
+    <div className={clsx("CitySearch", styles.citySearch)}>
       <Autocomplete
         options={cities}
         getOptionLabel={(city: City) => city.cityName}
