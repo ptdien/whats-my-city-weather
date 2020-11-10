@@ -30,10 +30,3 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test -- --watchAll=false
-      - name: Build page
-        run: npm run build
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
