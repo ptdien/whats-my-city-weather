@@ -1,10 +1,10 @@
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import App from "components/App";
+import "index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import App from "components/App";
 import store from "redux/store";
-import "index.css";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 const theme = createMuiTheme({
   palette: {
     primary: {
