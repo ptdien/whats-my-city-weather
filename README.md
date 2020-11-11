@@ -16,7 +16,7 @@ Make sure your machine has the following installed:
 You can run the following commands to get the repo running on your local machine:
 
 - clone the repo.
-- install the dependencies by running either `yarn add` or `npm install`.
+- run `npm install`.
 - run `npm start`
 - Your app should be running on your `localhost:4200`
 
