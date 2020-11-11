@@ -14,6 +14,18 @@ export type CitiesState = {
   errorMessage?: string;
 };
 
+export const mapMetaWeatherLocationResponse = (response: { woeid: number; title: string; latt_long: string }[]) => {
+  return response.map((c) => {
+    const [latitude, longitude] = c.latt_long.split(",");
+    return {
+      cityName: c.title,
+      latitude,
+      longitude,
+      woeid: c.woeid,
+    };
+  }) as City[];
+};
+
 export const asyncFetchCityNames = createAsyncThunk<City[], string, { rejectValue: { errorMessage: string } }>(
   "cities/fetchCityNames",
   async (query: string, thunkApi) => {
@@ -21,19 +33,11 @@ export const asyncFetchCityNames = createAsyncThunk<City[], string, { rejectValu
       if (!query) {
         return [] as City[];
       }
-      const cities: { woeid: number; title: string; latt_long: string }[] = await fetchCityNames(query);
-      if (!cities || !cities.length) {
+      const responseCities: { woeid: number; title: string; latt_long: string }[] = await fetchCityNames(query);
+      if (!responseCities || !responseCities.length) {
         return [] as City[];
       }
-      return cities.map((c) => {
-        const [latitude, longitude] = c.latt_long.split(",");
-        return {
-          cityName: c.title,
-          latitude,
-          longitude,
-          woeid: c.woeid,
-        };
-      }) as City[];
+      return mapMetaWeatherLocationResponse(responseCities);
     } catch (e) {
       return thunkApi.rejectWithValue({
         errorMessage: "An unknown error occurred. Please try again.",

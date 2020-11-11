@@ -27,21 +27,30 @@ function fetchWeatherForecast(lon: string, lat: string) {
   });
 }
 
+export const map7TimeWeatherData = (forecastData: { dataseries: { date: string; temp2m: { max: string; min: string } }[] }) => {
+  return forecastData.dataseries.map(
+    (w: any) =>
+      ({
+        applicableDate: dayjs(String(w.date)).toISOString(),
+        maxTemperature: w.temp2m.max,
+        minTemperature: w.temp2m.min,
+      } as WeatherData)
+  );
+};
+
 export const asyncFetchWeatherData = createAsyncThunk<WeatherState, City, { rejectValue: { errorMessage: string } }>(
   "weather/fetchData",
   async ({ cityName, longitude, latitude }, thunkApi) => {
     try {
+      if (!longitude || !latitude) {
+        return thunkApi.rejectWithValue({
+          errorMessage: "Longitude or latitude cannot be empty",
+        });
+      }
       const forecastData = await fetchWeatherForecast(longitude, latitude).then((response) => response.data);
       return {
         cityName,
-        weatherData: forecastData.dataseries.map(
-          (w: any) =>
-            ({
-              applicableDate: dayjs(String(w.date)).toISOString(),
-              maxTemperature: w.temp2m.max,
-              minTemperature: w.temp2m.min,
-            } as WeatherData)
-        ),
+        weatherData: map7TimeWeatherData(forecastData),
       } as WeatherState;
     } catch (e) {
       return thunkApi.rejectWithValue({

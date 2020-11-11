@@ -35,13 +35,8 @@ export default function App() {
                 </Typography>
               </Grid>
               {weatherData.map((w) => (
-                <Grid item xs={6} md={3}>
-                  <WeatherCard
-                    key={w.applicableDate}
-                    dayIndex={new Date(w.applicableDate).getDay()}
-                    minTemperature={w.minTemperature}
-                    maxTemperature={w.maxTemperature}
-                  ></WeatherCard>
+                <Grid item xs={6} md={3} key={w.applicableDate}>
+                  <WeatherCard dayIndex={new Date(w.applicableDate).getDay()} minTemperature={w.minTemperature} maxTemperature={w.maxTemperature}></WeatherCard>
                 </Grid>
               ))}
             </>
