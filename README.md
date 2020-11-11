@@ -1,7 +1,7 @@
 <img src="public/logo.svg" height="200px" align="right"/>
 
 # What's My City Weather
-![CI](https://github.com/ptdien/whats-my-city-weather/workflows/CI/badge.svg) ![Coverage Status](https://coveralls.io/repos/github/ptdien/whats-my-city-weather/badge.svg?branch=main)](https://coveralls.io/github/ptdien/whats-my-city-weather?branch=main) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+![CI](https://github.com/ptdien/whats-my-city-weather/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/ptdien/whats-my-city-weather/badge.svg?branch=main)](https://coveralls.io/github/ptdien/whats-my-city-weather?branch=main) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 _Look up your next 8-days weather forecast, quick and easy_
 
@@ -22,6 +22,7 @@ You can run the following commands to get the repo running on your local machine
 
 
 Or use this one-click set up so that you can start coding straight away:
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
 ## Release notes
