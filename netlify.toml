@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/location"
+  to = "https://www.metaweather.com/api"
+  status = 200
+  force = true
