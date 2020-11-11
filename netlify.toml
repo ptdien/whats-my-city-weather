@@ -1,5 +1,1 @@
-[[redirects]]
-  from = "/location"
-  to = "https://www.metaweather.com/api/location"
-  status = 200
-  force = true
+/location/*  https://www.metaweather.com/api/location/:splat  200
