@@ -1,1 +1,10 @@
-/location/*  https://www.metaweather.com/api/location/:splat  200
+[[redirects]]
+  from = "/location/*"
+  to = "https://www.metaweather.com/api/location/:splat"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/forecast/*"
+  to = "http://www.7timer.info/bin/api.pl/:splat"
+  status = 200
+  force = true
