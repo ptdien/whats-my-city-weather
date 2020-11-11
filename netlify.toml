@@ -6,5 +6,5 @@
 [[redirects]]
   from = "/forecast/*"
   to = "http://www.7timer.info/bin/api.pl/:splat"
-  status = 200
+  status = 301
   force = true
