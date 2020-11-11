@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+<img src="https://metaweather.com/static/img/weather/s.svg" height="200px" align="right"/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# What's My City Weather
+![CI](https://github.com/ptdien/whats-my-city-weather/workflows/CI/badge.svg)
 
-## Available Scripts
+[![Build Status](https://travis-ci.org/immerjs/immer.svg?branch=master)](https://travis-ci.org/immerjs/immer) [![Coverage Status](https://coveralls.io/repos/github/ptdien/whats-my-city-weather/badge.svg?branch=main)](https://coveralls.io/github/ptdien/whats-my-city-weather?branch=main) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+_Look up your next 8-days weather forecast, quick and easy_
 
-In the project directory, you can run:
+## Prerequisites
 
-### `yarn start`
+Make sure your machine has the following installed:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The latest [NodeJS LTS](https://nodejs.org/en/) package.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting started
 
-### `yarn test`
+You can run the following commands to get the repo running on your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- clone the repo.
+- install the dependencies by running `yarn add` or `npm install`.
+- run `npm start` and wait for the app to finish compiling.
+- You should see your app running at `localhost:4200`
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Or one-click set up so that you can start coding straight away:
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Release notes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

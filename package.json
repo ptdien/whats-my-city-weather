@@ -1,7 +1,7 @@
 {
   "name": "whats-my-city-weather",
   "homepage": "/whats-my-city-weather",
-  "version": "0.1.0",
+  "version": "1.0.0b",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
