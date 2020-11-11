@@ -13,7 +13,7 @@ Make sure your machine has the following installed:
 
 ## Getting started
 
-You can run the following commands to get the repo running on your local machine:
+You can follow these steps to get the repo running on your local machine:
 
 - clone the repo.
 - run `npm install`.
