@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/location"
-  to = "https://www.metaweather.com/api"
+  to = "https://www.metaweather.com/api/location"
   status = 200
   force = true
