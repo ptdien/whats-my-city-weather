@@ -1,4 +1,4 @@
-<img src="https://metaweather.com/static/img/weather/s.svg" height="200px" align="right"/>
+<img src="public/logo.svg" height="200px" align="right"/>
 
 # What's My City Weather
 ![CI](https://github.com/ptdien/whats-my-city-weather/workflows/CI/badge.svg)
