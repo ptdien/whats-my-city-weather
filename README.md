@@ -27,4 +27,4 @@ Or use this one-click set up so that you can start coding straight away:
 
 ## Release notes
 
-
+https://github.com/ptdien/whats-my-city-weather/releases
