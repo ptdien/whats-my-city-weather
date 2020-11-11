@@ -4,6 +4,7 @@
 ![CI](https://github.com/ptdien/whats-my-city-weather/workflows/CI/badge.svg)
 
 [![Build Status](https://travis-ci.org/immerjs/immer.svg?branch=master)](https://travis-ci.org/immerjs/immer) [![Coverage Status](https://coveralls.io/repos/github/ptdien/whats-my-city-weather/badge.svg?branch=main)](https://coveralls.io/github/ptdien/whats-my-city-weather?branch=main) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 _Look up your next 8-days weather forecast, quick and easy_
 
 ## Prerequisites
