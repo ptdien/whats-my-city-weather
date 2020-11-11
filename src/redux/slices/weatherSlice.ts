@@ -50,7 +50,7 @@ export const asyncFetchWeatherData = createAsyncThunk<WeatherState, City, { reje
       const forecastData = await fetchWeatherForecast(longitude, latitude).then((response) => response.data);
       return {
         cityName,
-        weatherData: map7TimeWeatherData(forecastData),
+        weatherData: map7TimeWeatherData(forecastData).slice(0, 5),
       } as WeatherState;
     } catch (e) {
       return thunkApi.rejectWithValue({
