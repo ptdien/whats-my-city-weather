@@ -1,6 +1,5 @@
 {
   "name": "whats-my-city-weather",
-  "homepage": "/whats-my-city-weather",
   "version": "1.0.0b",
   "private": true,
   "dependencies": {
