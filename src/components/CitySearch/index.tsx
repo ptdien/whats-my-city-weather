@@ -8,7 +8,7 @@ import { RootStoreState } from "../../redux/store";
 
 type CitySearchProps = { initialValue?: City; label?: string; onChange?: (value: City | null) => void };
 
-export default function CitySearch({ label = "City Search", initialValue, onChange }: CitySearchProps) {
+export default function CitySearch({ label = "Enter your city name", initialValue, onChange }: CitySearchProps) {
   const styles = useStyles();
   const cities = useSelector((state: RootStoreState) => state.cities.cities);
   const status = useSelector((state: RootStoreState) => state.cities.status);
@@ -29,7 +29,7 @@ export default function CitySearch({ label = "City Search", initialValue, onChan
             onChange(newValue);
           }
         }}
-        renderInput={(params) => <TextField {...params} label={label} margin="normal" onChange={handleSearchCity} />}
+        renderInput={(params) => <TextField {...params} autoFocus label={label} margin="normal" onChange={handleSearchCity} />}
       />
     </div>
   );

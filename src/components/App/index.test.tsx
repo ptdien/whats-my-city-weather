@@ -1,13 +1,14 @@
 import React from "react";
-import { screen } from "@testing-library/react";
+import { cleanup, screen } from "@testing-library/react";
 import App from ".";
 import { render } from "../../test-utils";
 import { WeatherState, WeatherData } from "../../redux/slices/weatherSlice";
 
 describe("App", () => {
-  it("should see City Search input", () => {
+  afterEach(cleanup);
+  it("should see Enter your city name input", () => {
     render(<App></App>);
-    expect(screen.getByLabelText("City Search")).toBeInTheDocument();
+    expect(screen.getByLabelText("Enter your city name")).toBeInTheDocument();
   });
   it("should see Tuesday weather in Tokyo", () => {
     const todayWeather = {

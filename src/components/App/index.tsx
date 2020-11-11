@@ -25,7 +25,7 @@ export default function App() {
       <Grid container spacing={3} alignItems="center" justify="center">
         <Grid container item xs={12} spacing={3} className={styles.weatherCards} alignItems="center" justify="flex-start">
           <Grid item xs={12} className={styles.citySearch}>
-            <CitySearch label={"City Search"} onChange={handleSubmitSearch} />
+            <CitySearch label={"Enter your city name"} onChange={handleSubmitSearch} />
           </Grid>
           {weatherData && (
             <>
