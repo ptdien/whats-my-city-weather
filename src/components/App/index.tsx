@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import CitySearch from "components/CitySearch";
 import WeatherCard from "components/WeatherCard";
 import { City } from "redux/slices/citiesSlice";
-import { asyncFetchWeatherData } from "redux/slices/weatherSlice";
+import { asyncFetchWeatherData, selectFiveDayWeather } from "redux/slices/weatherSlice";
 import { RootStoreState } from "redux/store";
 
 export default function App() {
   const styles = useStyles();
   const dispatch = useDispatch();
-  const weatherData = useSelector((state: RootStoreState) => state.weather.weatherData);
+  const weatherData = useSelector(selectFiveDayWeather);
   const cityName = useSelector((state: RootStoreState) => state.weather.cityName);
   const status = useSelector((state: RootStoreState) => state.weather.status);
 
@@ -34,7 +34,7 @@ export default function App() {
                   {cityName}
                 </Typography>
               </Grid>
-              {weatherData.map((w) => (
+              {weatherData.slice(0, 5).map((w) => (
                 <Grid item xs={6} md={3} key={w.applicableDate}>
                   <WeatherCard dayIndex={new Date(w.applicableDate).getDay()} minTemperature={w.minTemperature} maxTemperature={w.maxTemperature}></WeatherCard>
                 </Grid>

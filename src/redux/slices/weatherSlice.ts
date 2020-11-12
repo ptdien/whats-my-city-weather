@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
 import dayjs from "dayjs";
+import { RootStoreState } from "redux/store";
 import { City } from "./citiesSlice";
 
 export type WeatherData = {
@@ -50,7 +51,7 @@ export const asyncFetchWeatherData = createAsyncThunk<WeatherState, City, { reje
       const forecastData = await fetchWeatherForecast(longitude, latitude).then((response) => response.data);
       return {
         cityName,
-        weatherData: map7TimeWeatherData(forecastData).slice(0, 5),
+        weatherData: map7TimeWeatherData(forecastData),
       } as WeatherState;
     } catch (e) {
       return thunkApi.rejectWithValue({
@@ -85,3 +86,10 @@ const weatherSlice = createSlice({
 });
 
 export default weatherSlice.reducer;
+export const selectFiveDayWeather = (state: RootStoreState) => {
+  const { weatherData } = state.weather;
+  if(weatherData) {
+    return weatherData.slice(0, 5);
+  }
+  return weatherData;
+}

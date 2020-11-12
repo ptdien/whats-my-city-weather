@@ -15,15 +15,17 @@ export type CitiesState = {
 };
 
 export const mapMetaWeatherLocationResponse = (response: { woeid: number; title: string; latt_long: string }[]) => {
-  return response.map((c) => {
-    const [latitude, longitude] = c.latt_long.split(",");
-    return {
-      cityName: c.title,
-      latitude,
-      longitude,
-      woeid: c.woeid,
-    };
-  }) as City[];
+  return response
+    .map((c) => {
+      const [latitude, longitude] = c.latt_long.split(",");
+      return {
+        cityName: c.title,
+        latitude,
+        longitude,
+        woeid: c.woeid,
+      } as City;
+    })
+    .sort((city, nextCity) => city.cityName.localeCompare(nextCity.cityName));
 };
 
 export const asyncFetchCityNames = createAsyncThunk<City[], string, { rejectValue: { errorMessage: string } }>(

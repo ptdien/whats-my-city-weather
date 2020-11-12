@@ -3,7 +3,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { makeStore } from "redux/store";
 import { City } from "./citiesSlice";
-import { map7TimeWeatherData, WeatherData, WeatherState, asyncFetchWeatherData } from "./weatherSlice";
+import { map7TimeWeatherData, WeatherData, WeatherState, asyncFetchWeatherData, selectFiveDayWeather } from "./weatherSlice";
 
 describe("Weather Slice", () => {
   const longitude = "106.662498";
@@ -93,7 +93,7 @@ describe("Weather Slice", () => {
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  it("The mapper function should return an array of `WeatherData`", () => {
+  it("map7TimeWeatherData function should return an array of `WeatherData`", () => {
     const mapperFn = map7TimeWeatherData;
     const firstRecord = response.dataseries[0];
     expect(mapperFn(response as any)[0]).toEqual({
@@ -103,29 +103,32 @@ describe("Weather Slice", () => {
     } as WeatherData);
   });
   it("should have status 'success' and payload not empty if query OK", () => {
-    const successState = {
-      status: "success",
-      errorMessage: undefined,
-      weatherData: map7TimeWeatherData(response),
-    } as WeatherState;
+    const expectedPayload = map7TimeWeatherData(response);
     return store.dispatch(asyncFetchWeatherData({ longitude, latitude } as City)).then(() => {
-      expect(store.getState().weather).toEqual(successState);
+      expect(store.getState().weather.status).toStrictEqual("success");
+      expect(store.getState().weather.weatherData).toEqual(expectedPayload);
     });
   });
 
   it("should have status 'error' and payload empty if 'longitude' or 'latitude' is empty", () => {
     return store.dispatch(asyncFetchWeatherData({ longitude: "", latitude } as City)).then(() => {
-      expect(store.getState().weather.status).toEqual('error');
+      expect(store.getState().weather.status).toStrictEqual("error");
     });
   });
   it("should have status 'error' if api error happens", () => {
     return store.dispatch(asyncFetchWeatherData({ longitude: "0", latitude } as City)).then(() => {
-      expect(store.getState().weather.status).toEqual("error");
+      expect(store.getState().weather.status).toStrictEqual("error");
     });
   });
 
   it("should have status 'loading' if async action is running", () => {
     store.dispatch(asyncFetchWeatherData({ longitude, latitude } as City));
-    expect(store.getState().weather.status).toEqual("loading");
+    expect(store.getState().weather.status).toStrictEqual("loading");
+  });
+
+  it("#selectFiveDayWeather should return only 5 day of weather forecast data", () => {
+    return store.dispatch(asyncFetchWeatherData({ longitude, latitude } as City)).then(() => {
+      expect(selectFiveDayWeather(store.getState()).length).toStrictEqual(5);
+    });
   });
 });
