@@ -25,6 +25,10 @@ Or use this one-click set up so that you can start coding straight away:
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
+## Live demo
+
+[Netlify](https://fervent-curran-066ad0.netlify.app/)
+
 ## Release notes
 
 https://github.com/ptdien/whats-my-city-weather/releases
